@@ -1,20 +1,22 @@
 package com.mfqueiroga.vibee.entities;
 
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "tb_user")
-public class User implements Serializable {
+@Table(name = "tb_beehive")
+public class Beehive implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -22,22 +24,26 @@ public class User implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
-	private String email;
-	private String password;
 
-	@OneToMany(mappedBy = "user")
-	private Set<Beehive> beehives = new HashSet<>();
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "localization_id", nullable = false)
+	@JsonIgnore
+	private Localization local;
 
-	public User() {
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_id", nullable = false)
+	@JsonIgnore
+	private User user;
+
+	public Beehive() {
 
 	}
 
-	public User(Long id, String name, String email, String password) {
-		super();
+	public Beehive(Long id, String name, Localization local, User user) {
 		this.id = id;
 		this.name = name;
-		this.email = email;
-		this.password = password;
+		this.local = local;
+		this.user = user;
 	}
 
 	public Long getId() {
@@ -56,29 +62,21 @@ public class User implements Serializable {
 		this.name = name;
 	}
 
-	public String getEmail() {
-		return email;
+	public Localization getLocal() {
+		return local;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setLocal(Localization local) {
+		this.local = local;
 	}
 
-	public String getPassword() {
-		return password;
+	public User getUser() {
+		return user;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setUser(User user) {
+		this.user = user;
 	}
-
-	public Set<Beehive> getBeehives() {
-		return beehives;
-	}
-
-	/*
-	 * public void setBeehives(Set<Beehive> beehives) { this.beehives = beehives; }
-	 */
 
 	@Override
 	public int hashCode() {
@@ -93,13 +91,13 @@ public class User implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		User other = (User) obj;
+		Beehive other = (Beehive) obj;
 		return Objects.equals(id, other.id);
 	}
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + "]";
+		return "Beehive [id=" + id + ", name=" + name + ", local=" + local + ", user=" + user + "]";
 	}
 
 }

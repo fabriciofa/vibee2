@@ -2,33 +2,39 @@ package com.mfqueiroga.vibee.entities;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "tb_localization")
-public class Localization implements Serializable{
+public class Localization implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@Column(precision = 9, scale = 6)
 	private BigDecimal latitude;
-	
+
 	@Column(precision = 9, scale = 6)
 	private BigDecimal longitude;
-	
+
+	@OneToMany(mappedBy = "local")
+	private Set<Beehive> beehives = new HashSet<>();
+
 	public Localization() {
-		
+
 	}
 
 	public Localization(Long id, BigDecimal latitude, BigDecimal longitude) {
@@ -61,6 +67,14 @@ public class Localization implements Serializable{
 		this.longitude = longitude;
 	}
 
+	public Set<Beehive> getBeehives() {
+		return beehives;
+	}
+
+	/*
+	 * public void setBeehives(Set<Beehive> beehives) { this.beehives = beehives; }
+	 */
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -82,6 +96,5 @@ public class Localization implements Serializable{
 	public String toString() {
 		return "Localization [id=" + id + ", latitude=" + latitude + ", longitude=" + longitude + "]";
 	}
-	
-	
+
 }
