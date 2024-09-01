@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.mfqueiroga.vibee.entities.enums.Bees;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -23,7 +24,8 @@ public class Beehive implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String name;
+
+	private Integer bee;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "localization_id", nullable = false)
@@ -39,9 +41,10 @@ public class Beehive implements Serializable {
 
 	}
 
-	public Beehive(Long id, String name, Localization local, User user) {
+	public Beehive(Long id, Bees bee, Localization local, User user) {
+		super();
 		this.id = id;
-		this.name = name;
+		setBee(bee);
 		this.local = local;
 		this.user = user;
 	}
@@ -54,12 +57,14 @@ public class Beehive implements Serializable {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public Bees getBee() {
+		return Bees.valueOf(bee);
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setBee(Bees bee) {
+		if (bee != null) {
+			this.bee = bee.getCode();
+		}
 	}
 
 	public Localization getLocal() {
@@ -97,7 +102,7 @@ public class Beehive implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Beehive [id=" + id + ", name=" + name + ", local=" + local + ", user=" + user + "]";
+		return "Beehive [id=" + id + ", bee=" + bee + ", local=" + local + ", user=" + user + "]";
 	}
 
 }

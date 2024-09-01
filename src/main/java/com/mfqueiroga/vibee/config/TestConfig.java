@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Profile;
 import com.mfqueiroga.vibee.entities.Beehive;
 import com.mfqueiroga.vibee.entities.Localization;
 import com.mfqueiroga.vibee.entities.User;
+import com.mfqueiroga.vibee.entities.enums.Bees;
 import com.mfqueiroga.vibee.repositories.BeehiveRepository;
 import com.mfqueiroga.vibee.repositories.LocalizationRepository;
 import com.mfqueiroga.vibee.repositories.UserRepository;
@@ -43,9 +44,9 @@ public class TestConfig implements CommandLineRunner {
 
 		localizationRepository.saveAll(Arrays.asList(l1, l2));
 
-		Beehive b1 = new Beehive(null, "Apimel", l1, u1);
-		Beehive b2 = new Beehive(null, "Melbom", l2, u2);
-		Beehive b3 = new Beehive(null, "Meumel", l2, u2);
+		Beehive b1 = new Beehive(null, Bees.ABELHA_EUROPEIA_APIS_MELLIFERA, l1, u1);
+		Beehive b2 = new Beehive(null, Bees.ABELHA_AFRICANIZADA, l2, u2);
+		Beehive b3 = new Beehive(null, Bees.ABELHA_NATIVA_SEM_FERRAO_MELIPONINEOS, l2, u2);
 
 		beehiveRepository.saveAll(Arrays.asList(b1, b2,b3));
 
