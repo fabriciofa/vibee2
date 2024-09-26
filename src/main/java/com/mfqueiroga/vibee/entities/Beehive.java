@@ -27,14 +27,12 @@ public class Beehive implements Serializable {
 
 	private Integer bee;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "localization_id", nullable = false)
-	@JsonIgnore
 	private Localization local;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "user_id", nullable = false)
-	@JsonIgnore
 	private User user;
 
 	public Beehive() {
