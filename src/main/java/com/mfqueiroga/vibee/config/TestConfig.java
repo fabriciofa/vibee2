@@ -1,6 +1,7 @@
 package com.mfqueiroga.vibee.config;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +11,13 @@ import org.springframework.context.annotation.Profile;
 
 import com.mfqueiroga.vibee.entities.Beehive;
 import com.mfqueiroga.vibee.entities.Localization;
+import com.mfqueiroga.vibee.entities.Notification;
 import com.mfqueiroga.vibee.entities.User;
 import com.mfqueiroga.vibee.entities.enums.Bees;
+import com.mfqueiroga.vibee.entities.enums.Diseases;
 import com.mfqueiroga.vibee.repositories.BeehiveRepository;
 import com.mfqueiroga.vibee.repositories.LocalizationRepository;
+import com.mfqueiroga.vibee.repositories.NotificationRepository;
 import com.mfqueiroga.vibee.repositories.UserRepository;
 
 @Configuration
@@ -28,6 +32,9 @@ public class TestConfig implements CommandLineRunner {
 
 	@Autowired
 	private BeehiveRepository beehiveRepository;
+	
+	@Autowired
+	private NotificationRepository notificationRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -50,6 +57,10 @@ public class TestConfig implements CommandLineRunner {
 
 		beehiveRepository.saveAll(Arrays.asList(b1, b2,b3));
 
+		Notification n1 = new Notification(null, u2, l2, Instant.parse("2024-09-25T15:24:05Z"),Diseases.CRIA_ENSACADA,true);
+		Notification n2 = new Notification(null, u1, l1, Instant.parse("2024-09-15T15:24:05Z"),Diseases.CRIA_PUTRIDA_EUROPEIA,true);
+		
+		notificationRepository.saveAll(Arrays.asList(n1,n2));
 	}
 
 }

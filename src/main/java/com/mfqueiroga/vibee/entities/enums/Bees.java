@@ -22,6 +22,6 @@ public enum Bees {
 				return value;
 			}
 		}
-		throw new IllegalArgumentException("Invalid Disease code!");
+		throw new IllegalArgumentException("Invalid Bee code!");
 	}
 }
