@@ -44,9 +44,9 @@ public class TestConfig implements CommandLineRunner {
 
 		userRepository.saveAll(Arrays.asList(u1, u2));
 
-		Localization l1 = new Localization(null, new BigDecimal(-2.5556003217212226),
+		Localization l1 = new Localization(new BigDecimal(-2.5556003217212226),
 				new BigDecimal(-44.25125126348713));
-		Localization l2 = new Localization(null, new BigDecimal(-2.544647539002137),
+		Localization l2 = new Localization(new BigDecimal(-2.544647539002137),
 				new BigDecimal(-44.25272596717743));
 
 		localizationRepository.saveAll(Arrays.asList(l1, l2));

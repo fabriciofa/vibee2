@@ -23,4 +23,8 @@ public class LocalizationService {
 		Optional<Localization> obj = repository.findById(id);
 		return obj.get();
 	}
+	
+	public Localization insert (Localization obj) {
+		return repository.save(obj);
+	}
 }

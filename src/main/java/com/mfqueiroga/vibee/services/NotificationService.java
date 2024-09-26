@@ -23,4 +23,8 @@ public class NotificationService {
 		Optional<Notification> obj = repository.findById(id);
 		return obj.get();
 	}
+	
+	public Notification insert (Notification obj) {
+		return repository.save(obj);
+	}
 }

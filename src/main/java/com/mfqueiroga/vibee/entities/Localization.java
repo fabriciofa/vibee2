@@ -37,8 +37,7 @@ public class Localization implements Serializable {
 
 	}
 
-	public Localization(Long id, BigDecimal latitude, BigDecimal longitude) {
-		this.id = id;
+	public Localization(BigDecimal latitude, BigDecimal longitude) {
 		this.latitude = latitude;
 		this.longitude = longitude;
 	}
